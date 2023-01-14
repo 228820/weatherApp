@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.weatherapp.pojo.CurrentWeatherData;
 import com.example.weatherapp.pojo.FutureWeatherData;
@@ -160,13 +162,26 @@ public class MainActivity extends AppCompatActivity {
             Log.d("TEST", "There is no internet connection!");
         }
 
-        /**
-         GET
-         **/
-        if(isNetworkAvailable()) {
-            apiInterface = APIClient.getClient().create(APIInterface.class);
-            getCoordinates();
-        }
+        BasicWeatherFragment basicWeatherFragment = new BasicWeatherFragment(123.23, 567.76, 36.6, 30.0, "Cloudly");
+        ExtendedWeatherFragment extendedWeatherFragment = new ExtendedWeatherFragment();
+        FutureWeatherFragment futureWeatherFragment = new FutureWeatherFragment();
+
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.basicWeatherFragment, basicWeatherFragment);
+        fragmentTransaction.replace(R.id.extendedWeatherFragment, extendedWeatherFragment);
+        fragmentTransaction.replace(R.id.futureWeatherFragment, futureWeatherFragment);
+//
+        fragmentTransaction.commit();
+
+//        /**
+//         GET
+//         **/
+//        if(isNetworkAvailable()) {
+//            apiInterface = APIClient.getClient().create(APIInterface.class);
+//            getCoordinates();
+//        }
 
     }
 }

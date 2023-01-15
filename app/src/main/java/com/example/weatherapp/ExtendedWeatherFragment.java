@@ -4,16 +4,19 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ExtendedWeatherFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class ExtendedWeatherFragment extends Fragment {
-//
+    View view;
+    int pressureValue, humidityValue, allValue;
+    Double speedValue;
+    TextView pressure, humidity, all, speed;
+
+
+    //
 //    // TODO: Rename parameter arguments, choose names that match
 //    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 //    private static final String ARG_PARAM1 = "param1";
@@ -23,9 +26,12 @@ public class ExtendedWeatherFragment extends Fragment {
 //    private String mParam1;
 //    private String mParam2;
 //
-//    public ExtendedWeatherFragment() {
-//        // Required empty public constructor
-//    }
+    public ExtendedWeatherFragment(int pressure,  int humidity, int all, Double speed) {
+        this.pressureValue = pressure;
+        this.humidityValue = humidity;
+        this.allValue = all;
+        this.speedValue = speed;
+    }
 //
 //    /**
 //     * Use this factory method to create a new instance of
@@ -55,9 +61,21 @@ public class ExtendedWeatherFragment extends Fragment {
 //    }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_extended_weather, container, false);
+        view = inflater.inflate(R.layout.fragment_extended_weather, container, false);
+        pressure = view.findViewById(R.id.pressure);
+        humidity = view.findViewById(R.id.humidity);
+        all = view.findViewById(R.id.all);
+        speed = view.findViewById(R.id.speed);
+
+
+        this.pressure.setText(Integer.toString(this.pressureValue));
+        this.humidity.setText(Integer.toString(this.humidityValue));
+        this.all.setText(Integer.toString(this.allValue));
+        this.speed.setText(this.speedValue.toString());
+
+
+        return view;
     }
 }

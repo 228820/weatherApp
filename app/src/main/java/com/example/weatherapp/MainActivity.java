@@ -162,8 +162,8 @@ public class MainActivity extends AppCompatActivity {
             Log.d("TEST", "There is no internet connection!");
         }
 
-        BasicWeatherFragment basicWeatherFragment = new BasicWeatherFragment(123.23, 567.76, 36.6, 30.0, "Cloudly");
-        ExtendedWeatherFragment extendedWeatherFragment = new ExtendedWeatherFragment();
+        BasicWeatherFragment basicWeatherFragment = new BasicWeatherFragment(123.23, 567.76, 36.6, 30.0, "Lodz", "Cloudly");
+        ExtendedWeatherFragment extendedWeatherFragment = new ExtendedWeatherFragment(1003, 92, 75, 5.14);
         FutureWeatherFragment futureWeatherFragment = new FutureWeatherFragment();
 
 

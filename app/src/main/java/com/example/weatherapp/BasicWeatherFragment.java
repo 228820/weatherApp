@@ -8,11 +8,15 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class BasicWeatherFragment extends Fragment {
     View view;
     Double lonValue, lanValue, tempValue, feelsLikeValue;
-    String descValue;
-    TextView desc, temp, feelsLike, lon, lat;
+    String nameValue, mainValue;
+    TextView name, main, temp, feelsLike, lon, timeAndDate;
 
 //
 //    // TODO: Rename parameter arguments, choose names that match
@@ -25,12 +29,13 @@ public class BasicWeatherFragment extends Fragment {
 //    private String mParam2;
 //
 
-    public BasicWeatherFragment(Double lon, Double lan, Double temp, Double feelsLike, String description) {
+    public BasicWeatherFragment(Double lon, Double lan, Double temp, Double feelsLike, String nameValue, String main) {
         this.lonValue = lon;
         this.lanValue = lan;
         this.tempValue = temp;
         this.feelsLikeValue = feelsLike;
-        this.descValue = description;
+        this.nameValue= nameValue;
+        this.mainValue = main;
     }
 //
 //    /**
@@ -65,17 +70,21 @@ public class BasicWeatherFragment extends Fragment {
         // Inflate the layout for this fragment
         this.view = inflater.inflate(R.layout.fragment_basic_weather, container, false);
 
-        desc = view.findViewById(R.id.desc);
+        name = view.findViewById(R.id.name);
+        main = view.findViewById(R.id.main);
         temp = view.findViewById(R.id.temp);
         feelsLike = view.findViewById(R.id.feelsLike);
         lon = view.findViewById(R.id.lon);
-        lat = view.findViewById(R.id.lat);
+        timeAndDate = view.findViewById(R.id.timeAndDate);
 
-        this.desc.setText(this.descValue.toString());
-        this.temp.setText(this.tempValue.toString());
-        this.feelsLike.setText(this.feelsLikeValue.toString());
-        this.lon.setText(this.lonValue.toString());
-        this.lat.setText(this.lanValue.toString());
+        this.name.setText(this.nameValue.toString());
+        this.main.setText(this.mainValue.toString());
+        this.temp.setText(this.tempValue.toString() + " \u2103");
+        this.feelsLike.setText("Odczuwalna: " + this.feelsLikeValue.toString() + " \u2103");
+        this.lon.setText(this.lanValue.toString() + " " + this.lonValue.toString());
+
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy, HH:mm");
+        this.timeAndDate.setText(df.format(Calendar.getInstance().getTime()));
 
         return view;
     }

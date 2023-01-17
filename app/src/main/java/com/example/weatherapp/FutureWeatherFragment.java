@@ -24,11 +24,11 @@ public class FutureWeatherFragment extends Fragment {
 //    private String mParam2;
 
     public FutureWeatherFragment(String day1, String day2, String day3, String day4, String day5) {
-        this.day1Value = day1;
-        this.day2Value = day2;
-        this.day3Value = day3;
-        this.day4Value = day4;
-        this.day5Value = day5;
+        day1Value = day1;
+        day2Value = day2;
+        day3Value = day3;
+        day4Value = day4;
+        day5Value = day5;
     }
 
 //    /**
@@ -58,6 +58,24 @@ public class FutureWeatherFragment extends Fragment {
 //        }
 //    }
 
+    private void setFields() {
+        day1.setText(this.day1Value);
+        day2.setText(this.day2Value);
+        day3.setText(this.day3Value);
+        day4.setText(this.day4Value);
+        day5.setText(this.day5Value);
+    }
+
+    public void refreshFragment(String day1, String day2, String day3, String day4, String day5) {
+        day1Value = day1;
+        day2Value = day2;
+        day3Value = day3;
+        day4Value = day4;
+        day5Value = day5;
+
+        setFields();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -69,11 +87,7 @@ public class FutureWeatherFragment extends Fragment {
         day4 = view.findViewById(R.id.day4);
         day5 = view.findViewById(R.id.day5);
 
-        this.day1.setText(this.day1Value);
-        this.day2.setText(this.day2Value);
-        this.day3.setText(this.day3Value);
-        this.day4.setText(this.day4Value);
-        this.day5.setText(this.day5Value);
+        setFields();
 
         return view;
     }

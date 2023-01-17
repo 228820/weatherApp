@@ -28,10 +28,10 @@ public class ExtendedWeatherFragment extends Fragment {
 //    private String mParam2;
 //
     public ExtendedWeatherFragment(int pressure,  int humidity, int all, Double speed) {
-        this.pressureValue = pressure;
-        this.humidityValue = humidity;
-        this.allValue = all;
-        this.speedValue = speed;
+        pressureValue = pressure;
+        humidityValue = humidity;
+        allValue = all;
+        speedValue = speed;
     }
 //
 //    /**
@@ -61,6 +61,21 @@ public class ExtendedWeatherFragment extends Fragment {
 //        }
 //    }
 
+    private void setFields() {
+        pressure.setText(Integer.toString(pressureValue));
+        humidity.setText(Integer.toString(humidityValue));
+        all.setText(Integer.toString(allValue));
+        speed.setText(speedValue.toString());
+    }
+
+    public void refreshFragment(int pressure,  int humidity, int all, Double speed) {
+        pressureValue = pressure;
+        humidityValue = humidity;
+        allValue = all;
+        speedValue = speed;
+        setFields();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -71,10 +86,7 @@ public class ExtendedWeatherFragment extends Fragment {
         speed = view.findViewById(R.id.speed);
 
         try {
-            this.pressure.setText(Integer.toString(this.pressureValue));
-            this.humidity.setText(Integer.toString(this.humidityValue));
-            this.all.setText(Integer.toString(this.allValue));
-            this.speed.setText(this.speedValue.toString());
+            setFields();
         } catch (Exception e) {
             Log.d("TEST", "[Extended Weather] Something went wrongL!");
         }

@@ -30,13 +30,13 @@ public class BasicWeatherFragment extends Fragment {
 //    private String mParam2;
 //
 
-    public BasicWeatherFragment(Double lon, Double lan, Double temp, Double feelsLike, String nameValue, String main) {
-        this.lonValue = lon;
-        this.lanValue = lan;
-        this.tempValue = temp;
-        this.feelsLikeValue = feelsLike;
-        this.nameValue= nameValue;
-        this.mainValue = main;
+    public BasicWeatherFragment(Double lon, Double lan, Double temp, Double feelsLike, String name, String main) {
+        lonValue = lon;
+        lanValue = lan;
+        tempValue = temp;
+        feelsLikeValue = feelsLike;
+        nameValue= name;
+        mainValue = main;
     }
 //
 //    /**
@@ -66,10 +66,31 @@ public class BasicWeatherFragment extends Fragment {
 //        }
 //    }
 
+    private void setFields() {
+        name.setText(nameValue);
+        main.setText(mainValue);
+        temp.setText(tempValue.toString() + " \u2103");
+        feelsLike.setText("Odczuwalna: " + feelsLikeValue.toString() + " \u2103");
+        lon.setText(lanValue.toString() + " " + lonValue.toString());
+
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy, HH:mm");
+        timeAndDate.setText(df.format(Calendar.getInstance().getTime()));
+    }
+
+    public void refreshFragment(Double lon, Double lan, Double temp, Double feelsLike, String name, String main) {
+        lonValue = lon;
+        lanValue = lan;
+        tempValue = temp;
+        feelsLikeValue = feelsLike;
+        nameValue = name;
+        mainValue = main;
+        setFields();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        this.view = inflater.inflate(R.layout.fragment_basic_weather, container, false);
+        view = inflater.inflate(R.layout.fragment_basic_weather, container, false);
 
         name = view.findViewById(R.id.name);
         main = view.findViewById(R.id.main);
@@ -79,18 +100,10 @@ public class BasicWeatherFragment extends Fragment {
         timeAndDate = view.findViewById(R.id.timeAndDate);
 
         try {
-            this.name.setText(this.nameValue.toString());
-            this.main.setText(this.mainValue.toString());
-            this.temp.setText(this.tempValue.toString() + " \u2103");
-            this.feelsLike.setText("Odczuwalna: " + this.feelsLikeValue.toString() + " \u2103");
-            this.lon.setText(this.lanValue.toString() + " " + this.lonValue.toString());
-
-            DateFormat df = new SimpleDateFormat("dd-MM-yyyy, HH:mm");
-            this.timeAndDate.setText(df.format(Calendar.getInstance().getTime()));
+            setFields();
         } catch (Exception e) {
             Log.d("TEST", "[Basic Weather] Something went wrongL!");
         }
-
 
         return view;
     }

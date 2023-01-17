@@ -1,6 +1,7 @@
 package com.example.weatherapp;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,12 +70,14 @@ public class ExtendedWeatherFragment extends Fragment {
         all = view.findViewById(R.id.all);
         speed = view.findViewById(R.id.speed);
 
-
-        this.pressure.setText(Integer.toString(this.pressureValue));
-        this.humidity.setText(Integer.toString(this.humidityValue));
-        this.all.setText(Integer.toString(this.allValue));
-        this.speed.setText(this.speedValue.toString());
-
+        try {
+            this.pressure.setText(Integer.toString(this.pressureValue));
+            this.humidity.setText(Integer.toString(this.humidityValue));
+            this.all.setText(Integer.toString(this.allValue));
+            this.speed.setText(this.speedValue.toString());
+        } catch (Exception e) {
+            Log.d("TEST", "[Extended Weather] Something went wrongL!");
+        }
 
         return view;
     }

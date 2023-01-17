@@ -1,6 +1,7 @@
 package com.example.weatherapp;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,14 +78,19 @@ public class BasicWeatherFragment extends Fragment {
         lon = view.findViewById(R.id.lon);
         timeAndDate = view.findViewById(R.id.timeAndDate);
 
-        this.name.setText(this.nameValue.toString());
-        this.main.setText(this.mainValue.toString());
-        this.temp.setText(this.tempValue.toString() + " \u2103");
-        this.feelsLike.setText("Odczuwalna: " + this.feelsLikeValue.toString() + " \u2103");
-        this.lon.setText(this.lanValue.toString() + " " + this.lonValue.toString());
+        try {
+            this.name.setText(this.nameValue.toString());
+            this.main.setText(this.mainValue.toString());
+            this.temp.setText(this.tempValue.toString() + " \u2103");
+            this.feelsLike.setText("Odczuwalna: " + this.feelsLikeValue.toString() + " \u2103");
+            this.lon.setText(this.lanValue.toString() + " " + this.lonValue.toString());
 
-        DateFormat df = new SimpleDateFormat("dd-MM-yyyy, HH:mm");
-        this.timeAndDate.setText(df.format(Calendar.getInstance().getTime()));
+            DateFormat df = new SimpleDateFormat("dd-MM-yyyy, HH:mm");
+            this.timeAndDate.setText(df.format(Calendar.getInstance().getTime()));
+        } catch (Exception e) {
+            Log.d("TEST", "[Basic Weather] Something went wrongL!");
+        }
+
 
         return view;
     }

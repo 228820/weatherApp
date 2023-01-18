@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment;
 
 public class FutureWeatherFragment extends Fragment {
     View view;
+    String units;
+
     String day1Value, day2Value, day3Value, day4Value, day5Value;
     TextView day1, day2, day3, day4, day5;
 
@@ -23,12 +25,13 @@ public class FutureWeatherFragment extends Fragment {
 //    private String mParam1;
 //    private String mParam2;
 
-    public FutureWeatherFragment(String day1, String day2, String day3, String day4, String day5) {
+    public FutureWeatherFragment(String day1, String day2, String day3, String day4, String day5, String units) {
         day1Value = day1;
         day2Value = day2;
         day3Value = day3;
         day4Value = day4;
         day5Value = day5;
+        this.units = units;
     }
 
 //    /**
@@ -66,12 +69,13 @@ public class FutureWeatherFragment extends Fragment {
         day5.setText(this.day5Value);
     }
 
-    public void refreshFragment(String day1, String day2, String day3, String day4, String day5) {
+    public void refreshFragment(String day1, String day2, String day3, String day4, String day5, String units) {
         day1Value = day1;
         day2Value = day2;
         day3Value = day3;
         day4Value = day4;
         day5Value = day5;
+        this.units = units;
 
         setFields();
     }

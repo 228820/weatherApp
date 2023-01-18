@@ -15,6 +15,8 @@ import java.util.Calendar;
 
 public class BasicWeatherFragment extends Fragment {
     View view;
+    String units;
+
     Double lonValue, lanValue, tempValue, feelsLikeValue;
     String nameValue, mainValue;
     TextView name, main, temp, feelsLike, lon, timeAndDate;
@@ -30,13 +32,14 @@ public class BasicWeatherFragment extends Fragment {
 //    private String mParam2;
 //
 
-    public BasicWeatherFragment(Double lon, Double lan, Double temp, Double feelsLike, String name, String main) {
+    public BasicWeatherFragment(Double lon, Double lan, Double temp, Double feelsLike, String name, String main, String units) {
         lonValue = lon;
         lanValue = lan;
         tempValue = temp;
         feelsLikeValue = feelsLike;
         nameValue= name;
         mainValue = main;
+        this.units = units;
     }
 //
 //    /**
@@ -69,21 +72,28 @@ public class BasicWeatherFragment extends Fragment {
     private void setFields() {
         name.setText(nameValue);
         main.setText(mainValue);
-        temp.setText(tempValue.toString() + " \u2103");
-        feelsLike.setText("Odczuwalna: " + feelsLikeValue.toString() + " \u2103");
+        if (units.compareTo("metric") == 0) {
+            temp.setText(tempValue.toString() + " \u2103");
+            feelsLike.setText("Odczuwalna: " + feelsLikeValue.toString() + " \u2103");
+        } else {
+            temp.setText(tempValue.toString() + " \u2109");
+            feelsLike.setText("Odczuwalna: " + feelsLikeValue.toString() + " \u2109");
+        }
         lon.setText(String.format("%.2f", lanValue) + " " + String.format("%.2f", lonValue));
 
         DateFormat df = new SimpleDateFormat("dd-MM-yyyy, HH:mm");
         timeAndDate.setText(df.format(Calendar.getInstance().getTime()));
     }
 
-    public void refreshFragment(Double lon, Double lan, Double temp, Double feelsLike, String name, String main) {
+    public void refreshFragment(Double lon, Double lan, Double temp, Double feelsLike, String name, String main, String units) {
         lonValue = lon;
         lanValue = lan;
         tempValue = temp;
         feelsLikeValue = feelsLike;
         nameValue = name;
         mainValue = main;
+        this.units = units;
+
         setFields();
     }
 

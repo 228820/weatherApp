@@ -1,7 +1,6 @@
 package com.example.weatherapp;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +11,8 @@ import androidx.fragment.app.Fragment;
 
 public class ExtendedWeatherFragment extends Fragment {
     View view;
+    String units;
+
     int pressureValue, humidityValue, allValue;
     Double speedValue;
     TextView pressure, humidity, all, speed;
@@ -27,11 +28,12 @@ public class ExtendedWeatherFragment extends Fragment {
 //    private String mParam1;
 //    private String mParam2;
 //
-    public ExtendedWeatherFragment(int pressure,  int humidity, int all, Double speed) {
+    public ExtendedWeatherFragment(int pressure,  int humidity, int all, Double speed, String units) {
         pressureValue = pressure;
         humidityValue = humidity;
         allValue = all;
         speedValue = speed;
+        this.units = units;
     }
 //
 //    /**
@@ -62,17 +64,24 @@ public class ExtendedWeatherFragment extends Fragment {
 //    }
 
     private void setFields() {
-        pressure.setText(Integer.toString(pressureValue) + " hPa");
-        humidity.setText(Integer.toString(humidityValue) + "%");
-        all.setText(Integer.toString(allValue) + "%");
-        speed.setText(speedValue.toString() + " m/s");
+        pressure.setText(pressureValue + " hPa");
+        humidity.setText(humidityValue + "%");
+        all.setText(allValue + "%");
+
+        if(units.compareTo("metric") == 0) {
+            speed.setText(speedValue.toString() + " m/s");
+        } else {
+            speed.setText(speedValue.toString() + " miles/hour");
+        }
     }
 
-    public void refreshFragment(int pressure,  int humidity, int all, Double speed) {
+    public void refreshFragment(int pressure,  int humidity, int all, Double speed, String units) {
         pressureValue = pressure;
         humidityValue = humidity;
         allValue = all;
         speedValue = speed;
+        this.units = units;
+
         setFields();
     }
 
@@ -85,11 +94,7 @@ public class ExtendedWeatherFragment extends Fragment {
         all = view.findViewById(R.id.all);
         speed = view.findViewById(R.id.speed);
 
-        try {
-            setFields();
-        } catch (Exception e) {
-            Log.d("TEST", "[Extended Weather] Something went wrongL!");
-        }
+        setFields();
 
         return view;
     }

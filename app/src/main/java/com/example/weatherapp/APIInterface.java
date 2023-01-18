@@ -17,9 +17,9 @@ public interface APIInterface {
     Call<List<GeoData>> getGeoData(@Query("q") String q, @Query("limit") int limit, @Query("appid") String appid);
 
     @GET("/data/2.5/weather")
-    Call<CurrentWeatherData> getCurrentWeatherData(@Query("lat") double lat, @Query("lon") double lon, @Query("appid") String appid, @Query("units") String units);
+    Call<CurrentWeatherData> getCurrentWeatherData(@Query("lat") double lat, @Query("lon") double lon, @Query("appid") String appid, @Query("units") String units,  @Query("lang") String lang);
 
     @GET("/data/2.5/forecast")
-    Call<FutureWeatherData> getFutureWeatherData(@Query("lat") double lat, @Query("lon") double lon, @Query("appid") String appid, @Query("units") String units);
+    Call<FutureWeatherData> getFutureWeatherData(@Query("lat") double lat, @Query("lon") double lon, @Query("appid") String appid, @Query("units") String units,  @Query("lang") String lang);
 
 }

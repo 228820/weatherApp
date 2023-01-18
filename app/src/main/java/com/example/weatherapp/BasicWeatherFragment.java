@@ -18,8 +18,8 @@ public class BasicWeatherFragment extends Fragment {
     String units;
 
     Double lonValue, lanValue, tempValue, feelsLikeValue;
-    String nameValue, mainValue;
-    TextView name, main, temp, feelsLike, lon, timeAndDate;
+    String nameValue, descriptionValue;
+    TextView name, description, temp, feelsLike, lon, timeAndDate;
 
 //
 //    // TODO: Rename parameter arguments, choose names that match
@@ -32,13 +32,13 @@ public class BasicWeatherFragment extends Fragment {
 //    private String mParam2;
 //
 
-    public BasicWeatherFragment(Double lon, Double lan, Double temp, Double feelsLike, String name, String main, String units) {
+    public BasicWeatherFragment(Double lon, Double lan, Double temp, Double feelsLike, String name, String description, String units) {
         lonValue = lon;
         lanValue = lan;
         tempValue = temp;
         feelsLikeValue = feelsLike;
         nameValue= name;
-        mainValue = main;
+        descriptionValue = description;
         this.units = units;
     }
 //
@@ -71,7 +71,7 @@ public class BasicWeatherFragment extends Fragment {
 
     private void setFields() {
         name.setText(nameValue);
-        main.setText(mainValue);
+        description.setText(descriptionValue);
         if (units.compareTo("metric") == 0) {
             temp.setText(tempValue.toString() + " \u2103");
             feelsLike.setText("Odczuwalna: " + feelsLikeValue.toString() + " \u2103");
@@ -85,13 +85,13 @@ public class BasicWeatherFragment extends Fragment {
         timeAndDate.setText(df.format(Calendar.getInstance().getTime()));
     }
 
-    public void refreshFragment(Double lon, Double lan, Double temp, Double feelsLike, String name, String main, String units) {
+    public void refreshFragment(Double lon, Double lan, Double temp, Double feelsLike, String name, String description, String units) {
         lonValue = lon;
         lanValue = lan;
         tempValue = temp;
         feelsLikeValue = feelsLike;
         nameValue = name;
-        mainValue = main;
+        descriptionValue = description;
         this.units = units;
 
         setFields();
@@ -103,7 +103,7 @@ public class BasicWeatherFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_basic_weather, container, false);
 
         name = view.findViewById(R.id.name);
-        main = view.findViewById(R.id.main);
+        description = view.findViewById(R.id.description);
         temp = view.findViewById(R.id.temp);
         feelsLike = view.findViewById(R.id.feelsLike);
         lon = view.findViewById(R.id.lon);

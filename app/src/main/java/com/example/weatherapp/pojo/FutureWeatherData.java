@@ -8,15 +8,22 @@ public class FutureWeatherData {
 
     public class FutureWeatherObj {
         @SerializedName("main")
-        public WeatherObj main;
+        public MainObj main;
+
+        @SerializedName("weather")
+        public WeatherObj[] weather;
 
         @SerializedName("dt_txt")
         public String weatherDate;
 
-
-        public class WeatherObj {
+        public class MainObj {
             @SerializedName("temp")
             public Double temp;
+        }
+
+        public class WeatherObj {
+            @SerializedName("main")
+            public String main;
         }
     }
 }

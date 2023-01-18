@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     String city, units;
 
     Double lon = 0.0, lat = 0.0, temp = 0.0, feelsLike = 0.0, speed = 0.0;
-    String name = "-", main = "-", day1 = "-", day2 = "-", day3 = "-", day4 = "-", day5 = "-";
+    String name = "-", description = "-", day1 = "-", day2 = "-", day3 = "-", day4 = "-", day5 = "-";
     int pressure = 0, humidity = 0, all = 0;
 
     public boolean isNetworkAvailable() {
@@ -90,13 +90,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getCurrentWeather() {
-        Call<CurrentWeatherData> call = apiInterface.getCurrentWeatherData(lat, lon, APIInterface.API_KEY, units);
+        Call<CurrentWeatherData> call = apiInterface.getCurrentWeatherData(lat, lon, APIInterface.API_KEY, units, "pl");
         call.enqueue(new Callback<CurrentWeatherData>() {
             @Override
             public void onResponse(Call<CurrentWeatherData> call, Response<CurrentWeatherData> response) {
                 CurrentWeatherData resource = response.body();
                 if(resource != null) {
-                    main = resource.weather[0].main;
+                    description = resource.weather[0].description;
                     temp = resource.main.temp;
                     feelsLike = resource.main.feelsLike;
                     pressure =  resource.main.pressure;
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                     all = resource.clouds.all;
 
                     basicWeatherFragment = (BasicWeatherFragment) fragmentManager.findFragmentByTag("basicWeatherFragment");
-                    basicWeatherFragment.refreshFragment(lon, lat, temp, feelsLike, name, main, units);
+                    basicWeatherFragment.refreshFragment(lon, lat, temp, feelsLike, name, description, units);
 
                     extendedWeatherFragment = (ExtendedWeatherFragment) fragmentManager.findFragmentByTag("extendedWeatherFragment");
                     extendedWeatherFragment.refreshFragment(pressure, humidity, all, speed, units);
@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getFutureWeather() {
-        Call<FutureWeatherData> call = apiInterface.getFutureWeatherData(lat, lon, APIInterface.API_KEY, units);
+        Call<FutureWeatherData> call = apiInterface.getFutureWeatherData(lat, lon, APIInterface.API_KEY, units, "pl");
         call.enqueue(new Callback<FutureWeatherData>() {
             @Override
             public void onResponse(Call<FutureWeatherData> call, Response<FutureWeatherData> response) {
@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
                         futureWeatherFragment = (FutureWeatherFragment) fragmentManager.findFragmentByTag("futureWeatherFragment");
                         futureWeatherFragment.refreshFragment(day1, day2, day3, day4, day5, units);
                     } catch (Exception e) {
-                        Log.d("TEST", "#getFtureWeather: Error with something");
+                        Log.d("TEST", "#getFutureWeather: Error with something");
                         Toast.makeText(getApplicationContext(),"Cannot fetch data! Please check internet connection and try later",Toast.LENGTH_SHORT).show();
                     }
                 } else {
@@ -205,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         try {
-            basicWeatherFragment = new BasicWeatherFragment(lon, lat, temp, feelsLike, name, main, units);
+            basicWeatherFragment = new BasicWeatherFragment(lon, lat, temp, feelsLike, name, description, units);
             extendedWeatherFragment = new ExtendedWeatherFragment(pressure, humidity, all, speed, units);
             futureWeatherFragment = new FutureWeatherFragment(day1, day2, day3, day4, day5, units);
 

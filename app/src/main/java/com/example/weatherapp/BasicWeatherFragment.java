@@ -71,7 +71,7 @@ public class BasicWeatherFragment extends Fragment {
         main.setText(mainValue);
         temp.setText(tempValue.toString() + " \u2103");
         feelsLike.setText("Odczuwalna: " + feelsLikeValue.toString() + " \u2103");
-        lon.setText(lanValue.toString() + " " + lonValue.toString());
+        lon.setText(String.format("%.2f", lanValue) + " " + String.format("%.2f", lonValue));
 
         DateFormat df = new SimpleDateFormat("dd-MM-yyyy, HH:mm");
         timeAndDate.setText(df.format(Calendar.getInstance().getTime()));

@@ -62,10 +62,10 @@ public class ExtendedWeatherFragment extends Fragment {
 //    }
 
     private void setFields() {
-        pressure.setText(Integer.toString(pressureValue));
-        humidity.setText(Integer.toString(humidityValue));
-        all.setText(Integer.toString(allValue));
-        speed.setText(speedValue.toString());
+        pressure.setText(Integer.toString(pressureValue) + " hPa");
+        humidity.setText(Integer.toString(humidityValue) + "%");
+        all.setText(Integer.toString(allValue) + "%");
+        speed.setText(speedValue.toString() + " m/s");
     }
 
     public void refreshFragment(int pressure,  int humidity, int all, Double speed) {

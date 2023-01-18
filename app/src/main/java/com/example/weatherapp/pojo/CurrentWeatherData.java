@@ -23,6 +23,9 @@ public class CurrentWeatherData {
 
         @SerializedName("description")
         public String description;
+
+        @SerializedName("icon")
+        public String icon;
     }
 
     public class MainObj {

@@ -24,6 +24,9 @@ public class FutureWeatherData {
         public class WeatherObj {
             @SerializedName("main")
             public String main;
+
+            @SerializedName("icon")
+            public String icon;
         }
     }
 }

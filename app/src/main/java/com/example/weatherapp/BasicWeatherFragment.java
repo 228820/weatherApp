@@ -1,10 +1,12 @@
 package com.example.weatherapp;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -18,8 +20,9 @@ public class BasicWeatherFragment extends Fragment {
     String units;
 
     Double lonValue, lanValue, tempValue, feelsLikeValue;
-    String nameValue, descriptionValue;
+    String nameValue, descriptionValue, icon;
     TextView name, description, temp, feelsLike, lon, timeAndDate;
+    ImageView imageView;
 
 //
 //    // TODO: Rename parameter arguments, choose names that match
@@ -32,7 +35,7 @@ public class BasicWeatherFragment extends Fragment {
 //    private String mParam2;
 //
 
-    public BasicWeatherFragment(Double lon, Double lan, Double temp, Double feelsLike, String name, String description, String units) {
+    public BasicWeatherFragment(Double lon, Double lan, Double temp, Double feelsLike, String name, String description, String units, String icon) {
         lonValue = lon;
         lanValue = lan;
         tempValue = temp;
@@ -40,6 +43,7 @@ public class BasicWeatherFragment extends Fragment {
         nameValue= name;
         descriptionValue = description;
         this.units = units;
+        this.icon = icon;
     }
 //
 //    /**
@@ -83,9 +87,14 @@ public class BasicWeatherFragment extends Fragment {
 
         DateFormat df = new SimpleDateFormat("dd-MM-yyyy, HH:mm");
         timeAndDate.setText(df.format(Calendar.getInstance().getTime()));
+
+        String uri = "@drawable/_" + icon;
+        int imageResource = getResources().getIdentifier(uri, null, MainActivity.PACKAGE_NAME);
+        Drawable res = getResources().getDrawable(imageResource);
+        imageView.setImageDrawable(res);
     }
 
-    public void refreshFragment(Double lon, Double lan, Double temp, Double feelsLike, String name, String description, String units) {
+    public void refreshFragment(Double lon, Double lan, Double temp, Double feelsLike, String name, String description, String units, String icon) {
         lonValue = lon;
         lanValue = lan;
         tempValue = temp;
@@ -93,6 +102,7 @@ public class BasicWeatherFragment extends Fragment {
         nameValue = name;
         descriptionValue = description;
         this.units = units;
+        this.icon = icon;
 
         setFields();
     }
@@ -108,6 +118,7 @@ public class BasicWeatherFragment extends Fragment {
         feelsLike = view.findViewById(R.id.feelsLike);
         lon = view.findViewById(R.id.lon);
         timeAndDate = view.findViewById(R.id.timeAndDate);
+        imageView = view.findViewById(R.id.imageView);
 
         try {
             setFields();

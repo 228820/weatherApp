@@ -35,9 +35,10 @@ public class MainActivity extends AppCompatActivity {
     FutureWeatherFragment futureWeatherFragment;
     Button menuBtn, refreshBtn;
     String city, units;
+    public static String PACKAGE_NAME;
 
     Double lon = 0.0, lat = 0.0, temp = 0.0, feelsLike = 0.0, speed = 0.0;
-    String name = "-", description = "-", day1 = "-", day2 = "-", day3 = "-", day4 = "-", day5 = "-";
+    String name = "-", description = "-", day1 = "-", day2 = "-", day3 = "-", day4 = "-", day5 = "-", icon = "01d", icon1 = "01d", icon2 = "01d", icon3 = "01d", icon4 = "01d", icon5 = "01d";
     int pressure = 0, humidity = 0, all = 0;
 
     public boolean isNetworkAvailable() {
@@ -103,9 +104,10 @@ public class MainActivity extends AppCompatActivity {
                     humidity =  resource.main.humidity;
                     speed = resource.wind.speed;
                     all = resource.clouds.all;
+                    icon = resource.weather[0].icon;
 
                     basicWeatherFragment = (BasicWeatherFragment) fragmentManager.findFragmentByTag("basicWeatherFragment");
-                    basicWeatherFragment.refreshFragment(lon, lat, temp, feelsLike, name, description, units);
+                    basicWeatherFragment.refreshFragment(lon, lat, temp, feelsLike, name, description, units, icon);
 
                     extendedWeatherFragment = (ExtendedWeatherFragment) fragmentManager.findFragmentByTag("extendedWeatherFragment");
                     extendedWeatherFragment.refreshFragment(pressure, humidity, all, speed, units);
@@ -147,8 +149,14 @@ public class MainActivity extends AppCompatActivity {
                             day5 = resource.list[4].weatherDate.substring(0, 10) + "   -   " + resource.list[4].main.temp + " \u2109";
                         }
 
+                        icon1 = resource.list[0].weather[0].icon;
+                        icon2 = resource.list[1].weather[0].icon;
+                        icon3 = resource.list[2].weather[0].icon;
+                        icon4 = resource.list[3].weather[0].icon;
+                        icon5 = resource.list[4].weather[0].icon;
+
                         futureWeatherFragment = (FutureWeatherFragment) fragmentManager.findFragmentByTag("futureWeatherFragment");
-                        futureWeatherFragment.refreshFragment(day1, day2, day3, day4, day5, units);
+                        futureWeatherFragment.refreshFragment(day1, day2, day3, day4, day5, units, icon1, icon2, icon3, icon4, icon5);
                     } catch (Exception e) {
                         Log.d("TEST", "#getFutureWeather: Error with something");
                         Toast.makeText(getApplicationContext(),"Cannot fetch data! Please check internet connection and try later",Toast.LENGTH_SHORT).show();
@@ -178,6 +186,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        PACKAGE_NAME = getApplicationContext().getPackageName();
 
         Log.d("TEST", "Creating...");
 
@@ -205,9 +214,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         try {
-            basicWeatherFragment = new BasicWeatherFragment(lon, lat, temp, feelsLike, name, description, units);
+            basicWeatherFragment = new BasicWeatherFragment(lon, lat, temp, feelsLike, name, description, units, icon);
             extendedWeatherFragment = new ExtendedWeatherFragment(pressure, humidity, all, speed, units);
-            futureWeatherFragment = new FutureWeatherFragment(day1, day2, day3, day4, day5, units);
+            futureWeatherFragment = new FutureWeatherFragment(day1, day2, day3, day4, day5, units, icon1, icon2, icon3, icon4, icon5);
 
             fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
